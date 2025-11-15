@@ -6,43 +6,49 @@
 
 | Método | Rota | Descrição |
 |--------|-------|------------|
-| `GET /deck` | Lista todos os decks | |
-| `GET /deck/:id` | Obtém um deck pelo ID | |
-| `GET /deck/name/:name` | Obtém um deck pelo nome | |
-| `POST /deck` | Cria um deck manualmente (ex: nome, formato, descrição etc.) | |
-| `PUT /deck/:id` | Atualiza informações do deck (nome, formato etc.) | |
-| `DELETE /deck/:id` | Exclui o deck | |
-| `GET /deck/:id/stats` | Retorna estatísticas (curva de mana, cores, tipos de carta, etc) | |
+| `GET` | `/deck` | Lista todos os decks |
+| `POST` | `/deck` | Cria um deck manualmente |
+| `GET` | `/deck/:id` | Obtém um deck pelo ID |
+| `PUT` | `/deck/:id` | Atualiza informações do deck (nome, formato etc.) |
+| `DELETE`| `/deck/:id` | Exclui o deck |
+| `GET` | `/deck/inicial` | Obtém o deck inicial da aplicação |
+| `GET` | `/deck/name/:name` | Obtém um deck pelo nome |
 
-### Importação / Exportação
+### Estatísticas e Exportação de Deck
 
 | Método | Rota | Descrição |
 |--------|-------|------------|
-| `GET /deck/:id/txt` | Baixa o deck como `.txt` | |
-| `GET /deck/:id/csv` | Baixa o deck como `.csv` | |
-| `POST /deck/import/txt` | Cria um deck a partir de um arquivo `.txt` | |
-| `POST /deck/import/csv` | Cria um deck a partir de um arquivo `.csv` | |
+| `GET` | `/deck/:id/stats` | Retorna estatísticas (curva de mana, cores, tipos de carta, etc) |
+| `GET` | `/deck/:id/txt` | Baixa o deck como `.txt` |
+| `GET` | `/deck/:id/csv` | Baixa o deck como `.csv` |
+
+### Importação de Deck
+
+| Método | Rota | Descrição |
+|--------|-------|------------|
+| `POST` | `/deck/import/txt` | Cria um deck a partir de um arquivo `.txt` |
+| `POST` | `/deck/import/csv` | Cria um deck a partir de um arquivo `.csv` |
 
 ### Cartas dentro de um Deck
 
 | Método | Rota | Descrição |
 |--------|-------|------------|
-| `POST /deck/:id/card` | Adiciona uma carta ao deck | |
-| `PUT /deck/:id/card/:cardId` | Atualiza a quantidade de uma carta no deck | |
-| `DELETE /deck/:id/card/:cardId` | Remove uma carta do deck | |
+| `POST` | `/deck/:id/card` | Adiciona uma carta ao deck |
+| `PUT` | `/deck/:id/card/{cardId}` | Atualiza a quantidade de uma carta no deck |
+| `DELETE` | `/deck/:id/card/{cardId}` | Remove uma carta do deck |
 
 ### Cartas
 
 | Método | Rota | Descrição |
 |--------|-------|------------|
-| `GET /card` | Lista todas as cartas salvas localmente | |
-| `GET /card/:id` | Busca carta pelo ID local | |
-| `GET /card/name/:name` | Busca carta pelo nome (local) | |
-| `GET /card/commander/` | Busca todos os commanders | |
-| `GET /card/search/:query` | Busca na API Scryfall | |
-| `GET /card/autocomplete/:query` | Autocompleta nomes de carta (Scryfall) | |
-| `POST /card` | Salva uma carta manualmente (opcional, se quiser armazenar) | |
-| `POST /card/random` | Busca carta aleatória | |
+| `GET` | `/card` | Lista todas as cartas salvas localmente |
+| `GET` | `/card/:id` | Busca carta pelo ID local |
+| `GET` | `/card/name/:name` | Busca carta pelo nome (local) |
+| `GET` | `/card/autocomplete/:query` | Autocompleta nomes de carta (Scryfall) |
+| `GET` | `/card/commander` | Obtém os 100 commanders melhores ranqueados |
+| `GET` | `/card/search/:query` | Busca na API Scryfall |
+| `POST` | `/card` | Salva uma carta manualmente (opcional, se quiser armazenar) |
+
 
 ## Estrutura Visual das Rotas
 
@@ -60,26 +66,21 @@
 │   │   ├── csv (GET) - Baixa como .csv
 │   │   └── card
 │   │       ├── (POST) - Adiciona uma carta
-│   │       └── {cardId}
+│   │       └── :cardId
 │   │           ├── (PUT) - Atualiza a quantidade
 │   │           └── (DELETE) - Remove uma carta
+│   ├── inicial (GET) - Obtém o deck inicial
 │   ├── name
 │   │   └── :name (GET) - Obtém um deck pelo nome
 │   └── import
 │       ├── txt (POST) - Cria deck de .txt
 │       └── csv (POST) - Cria deck de .csv
 └── card
-    ├── (GET) - Lista todas as cartas locais
-    ├── (POST) - Salva uma carta manualmente
-    ├── :id (GET) - Busca carta pelo ID local
     ├── name
-    │   └── :name (GET) - Busca carta pelo nome local
-    ├── commander (GET) - Busca todos os commanders
-    ├── search
-    │   └── :query (GET) - Busca na API Scryfall
-    ├── autocomplete
-    │   └── :query (GET) - Autocompleta nomes (Scryfall)
-    └── random (POST) - Busca carta aleatória
+    │   └── :name (GET) - Busca carta pelo nome
+    ├── commander (GET) - Obtém os 100 commanders melhores ranquados
+    └── autocomplete
+        └── :query (GET) - Autocompleta nomes (Scryfall)
 ```
 
 ## Tecnologias Utilizadas
