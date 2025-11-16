@@ -1,22 +1,15 @@
-from pydantic_settings import BaseSettings
-from functools import lru_cache
-import os
+from pydantic_settings import BaseSettings, SettingsConfigDict
+from pathlib import Path
+
+ENV_PATH = Path(__file__).resolve().parent / ".env"
 
 
 class Settings(BaseSettings):
-    PROJECT_NAME: str = "MTG-Deck"
-    VERSION: str = "0.1.0"
-
-    DATABASE_URL: str = os.getenv("DATABASE_URL", "sqlite:///./mtg-deck.db")
-
-    class Config:
-        env_file = ".env"
-        case_sensitive = True
+    API_KEY: str
+    CLIENT_ID: str
+    DATABASE_URL: str
+    API_URL: str
+    model_config = SettingsConfigDict(env_file=str(ENV_PATH), env_file_encoding="utf-8")
 
 
-@lru_cache()
-def get_settings() -> Settings:
-    return Settings()
-
-
-settings = get_settings()
+settings = Settings()

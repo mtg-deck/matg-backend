@@ -6,6 +6,9 @@ class DeckCardBase(BaseModel):
     card_id: int
     quantidade: int
 
+    class Config:
+        orm_mode = True
+
 
 class DeckCardCreate(DeckCardBase):
     pass

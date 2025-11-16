@@ -34,20 +34,16 @@
 | Método | Rota | Descrição |
 |--------|-------|------------|
 | `POST` | `/deck/:id/card` | Adiciona uma carta ao deck |
-| `PUT` | `/deck/:id/card/{cardId}` | Atualiza a quantidade de uma carta no deck |
-| `DELETE` | `/deck/:id/card/{cardId}` | Remove uma carta do deck |
+| `PUT` | `/deck/:id/card/:cardId` | Atualiza a quantidade de uma carta no deck |
+| `DELETE` | `/deck/:id/card/:cardId` | Remove uma carta do deck |
 
 ### Cartas
 
 | Método | Rota | Descrição |
 |--------|-------|------------|
-| `GET` | `/card` | Lista todas as cartas salvas localmente |
-| `GET` | `/card/:id` | Busca carta pelo ID local |
-| `GET` | `/card/name/:name` | Busca carta pelo nome (local) |
-| `GET` | `/card/autocomplete/:query` | Autocompleta nomes de carta (Scryfall) |
+| `GET` | `/card/name/:name` | Busca carta pelo nome |
+| `GET` | `/card/autocomplete/:partial` | Autocompleta nomes de carta |
 | `GET` | `/card/commander` | Obtém os 100 commanders melhores ranqueados |
-| `GET` | `/card/search/:query` | Busca na API Scryfall |
-| `POST` | `/card` | Salva uma carta manualmente (opcional, se quiser armazenar) |
 
 
 ## Estrutura Visual das Rotas
@@ -80,7 +76,7 @@
     │   └── :name (GET) - Busca carta pelo nome
     ├── commander (GET) - Obtém os 100 commanders melhores ranquados
     └── autocomplete
-        └── :query (GET) - Autocompleta nomes (Scryfall)
+        └── :partial (GET) - Autocompleta nomes
 ```
 
 ## Tecnologias Utilizadas

@@ -2,7 +2,7 @@ from pydantic import BaseModel
 
 
 class Card(BaseModel):
-    id: str
+    name: str
     colors: str
     color_identity: str
     cmc: int
@@ -11,3 +11,14 @@ class Card(BaseModel):
     art: str
     legal_commanders: bool
     is_commander: bool
+
+    class Config:
+        from_attributes = True
+
+
+class CardRead(Card):
+    id: int
+
+
+class CardList(BaseModel):
+    cards: list[Card]
