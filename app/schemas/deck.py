@@ -1,16 +1,19 @@
 from pydantic import BaseModel
-from schemas.deck_card import DeckCardRead
+from typing import List
+from datetime import datetime
+from .deck_card import DeckCardRead
+from .card import Card
 
 
 class DeckBase(BaseModel):
     nome: str
 
     class Config:
-        orm_mode = True
+        from_attributes = True
 
 
 class DeckCreate(DeckBase):
-    pass
+    commander: str
 
 
 class DeckUpdate(DeckBase):
@@ -19,8 +22,24 @@ class DeckUpdate(DeckBase):
 
 class DeckRead(DeckBase):
     id: int
-    last_update: str
+    last_update: datetime
 
 
 class DeckWithCards(DeckRead):
-    cards: list[DeckCardRead]
+    cards: List[DeckCardRead]
+
+
+class DeckSummary(BaseModel):
+    id: int
+    nome: str
+    last_update: datetime
+
+    class Config:
+        from_attributes = True
+
+
+class DeckList(BaseModel):
+    decks: List[DeckSummary]
+
+    class Config:
+        from_attributes = True

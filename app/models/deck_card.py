@@ -1,15 +1,16 @@
-from sqlalchemy import Column, Integer, ForeignKey, String
-from sqlalchemy.orm import relationship
-from database import Base
+from sqlalchemy.orm import Mapped, mapped_column, relationship
+from sqlalchemy import Integer, String, Boolean, ForeignKey
+from app.database import Base
 
 
 class DeckCard(Base):
     __tablename__ = "deck_cards"
 
-    deck_id = Column(Integer, ForeignKey("decks.id"), primary_key=True)
-    card_id = Column(String, ForeignKey("cards.id"), primary_key=True)
+    deck_id: Mapped[int] = mapped_column(ForeignKey("decks.id"), primary_key=True)
+    card_id: Mapped[str] = mapped_column(ForeignKey("cards.id"), primary_key=True)
 
-    quantidade = Column(Integer, nullable=False, default=1)
+    quantidade: Mapped[int] = mapped_column(Integer, nullable=False, default=1)
+    is_commander: Mapped[bool] = mapped_column(Boolean, nullable=False, default=False)
 
-    deck = relationship("Deck", back_populates="cards")
-    card = relationship("Card", back_populates="decks")
+    deck: Mapped["Deck"] = relationship(back_populates="cards")
+    card: Mapped["Card"] = relationship(back_populates="decks")

@@ -8,7 +8,7 @@ headers = {
 
 
 async def get_card_from_api(name: str) -> dict:
-    url = f"{settings.API_URL}/api/cards/name/{name}"
+    url = f"{settings.API_URL}/api/cards/{name}"
     async with httpx.AsyncClient() as client:
         try:
             resp = await client.get(url, headers=headers)

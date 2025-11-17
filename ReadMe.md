@@ -13,6 +13,7 @@
 | `DELETE`| `/deck/:id` | Exclui o deck |
 | `GET` | `/deck/inicial` | Obtém o deck inicial da aplicação |
 | `GET` | `/deck/name/:name` | Obtém um deck pelo nome |
+| `GET` | `/deck/meta/` | Obtém o meta para o deck |
 
 ### Estatísticas e Exportação de Deck
 

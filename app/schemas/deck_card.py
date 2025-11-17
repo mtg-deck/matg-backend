@@ -1,22 +1,35 @@
 from pydantic import BaseModel
-from schemas.card import Card
+from app.schemas.card import Card
 
 
 class DeckCardBase(BaseModel):
-    card_id: int
+    card_id: str
+    quantidade: int
+    is_commander: bool
+
+    class Config:
+        from_attributes = True
+
+
+class DeckCardRequest(BaseModel):
+    card_name: str
     quantidade: int
 
     class Config:
-        orm_mode = True
+        from_attributes = True
 
 
-class DeckCardCreate(DeckCardBase):
-    pass
+class DeckCardQuantity(BaseModel):
+    quantidade: int
+
+    class Config:
+        from_attributes = True
 
 
 class DeckCardRead(BaseModel):
     card: Card
     quantidade: int
+    is_commander: bool
 
     class Config:
         from_attributes = True
