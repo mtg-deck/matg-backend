@@ -45,6 +45,7 @@
 | `GET` | `/card/name/:name` | Busca carta pelo nome |
 | `GET` | `/card/autocomplete/:partial` | Autocompleta nomes de carta |
 | `GET` | `/card/commander` | Obtém os 100 commanders melhores ranqueados |
+| `GET` | `/card/commander/:nome` | Obtém o meta de um commander |
 
 
 ## Estrutura Visual das Rotas
@@ -76,6 +77,8 @@
     ├── name
     │   └── :name (GET) - Busca carta pelo nome
     ├── commander (GET) - Obtém os 100 commanders melhores ranquados
+    │   ├── (GET) - Obtém os 100 commanders melhores ranquados
+    │   └── commander (GET) - Obtém o meta de um commander
     └── autocomplete
         └── :partial (GET) - Autocompleta nomes
 ```

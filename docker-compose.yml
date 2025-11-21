@@ -1,0 +1,16 @@
+version: "3.9"
+
+services:
+  api:
+    build: .
+    container_name: my_api
+    ports:
+      - "8000:8000"
+    volumes:
+      - sqlite_data:/data
+    environment:
+      - DATABASE_URL="sqlite:///./mtg-deck.db"
+    restart: always
+
+volumes:
+  sqlite_data:
