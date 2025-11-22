@@ -1,4 +1,5 @@
 from pydantic import BaseModel
+from typing import Optional
 
 
 class Card(BaseModel):
@@ -13,13 +14,10 @@ class Card(BaseModel):
     legal_commanders: bool
     is_commander: bool
     price: str
+    edhec_rank: Optional[str]
 
     class Config:
         from_attributes = True
-
-
-class CardRead(Card):
-    id: int
 
 
 class CardList(BaseModel):

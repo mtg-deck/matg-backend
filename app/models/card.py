@@ -17,5 +17,6 @@ class Card(Base):
     legal_commanders: Mapped[bool] = mapped_column(Boolean, nullable=False)
     is_commander: Mapped[bool] = mapped_column(Boolean, nullable=False)
     price: Mapped[str] = mapped_column(String, nullable=False)
+    edhec_rank: Mapped[str] = mapped_column(String, nullable=True)
 
     decks: Mapped[list["DeckCard"]] = relationship(back_populates="card")
