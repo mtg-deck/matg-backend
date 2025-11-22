@@ -3,7 +3,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from app.external.api import get_many_cards_from_api
 from app.external.edhec import get_edhec_cardlists
 from app.database import get_db
-from app.schemas.card import Card as CardSchema, CardList
+from app.schemas.card import Card as CardSchema, CardList, CommanderList
 from app.services.card import (
     get_card_by_name_service,
     autocomplete_service,
@@ -20,13 +20,14 @@ async def get_card_by_name(name: str, db: AsyncSession = Depends(get_db)):
 
 
 @router.get("/autocomplete/{partial}", response_model=CardList)
-async def autocomplete_cards(partial: str):
-    return await autocomplete_service(partial)
+async def autocomplete_cards(partial: str, db: AsyncSession = Depends(get_db)):
+    return await autocomplete_service(partial, db)
 
 
 @router.get("/commander", response_model=CardList)
-async def get_commanders():
-    return await get_top_commanders_service()
+async def get_commanders(db: AsyncSession = Depends(get_db)):
+    cards = await get_top_commanders_service(db)
+    return cards
 
 
 @router.get("/commander/{name}/meta", response_model=dict)
@@ -42,3 +43,11 @@ async def get_commander_meta(name: str):
         card_list[key] = data
 
     return card_list
+
+
+@router.post("/batch", response_model=CommanderList)
+async def get_many_cards(card_list: list[str]):
+    if not card_list:
+        return []
+    cards = await get_many_cards(card_list)
+    return cards

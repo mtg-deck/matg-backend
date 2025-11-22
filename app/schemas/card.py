@@ -14,7 +14,7 @@ class Card(BaseModel):
     legal_commanders: bool
     is_commander: bool
     price: str
-    edhec_rank: Optional[str]
+    edhrec_rank: Optional[int]
 
     class Config:
         from_attributes = True
@@ -22,3 +22,11 @@ class Card(BaseModel):
 
 class CardList(BaseModel):
     cards: list[Card]
+
+
+class Commander(Card):
+    commander_rank: Optional[int] = None
+
+
+class CommanderList(BaseModel):
+    cards: list[Commander]

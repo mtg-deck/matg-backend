@@ -8,7 +8,7 @@ headers = {
 
 
 async def get_card_from_api(name: str) -> dict:
-    url = f"{settings.API_URL}/api/cards/{name}"
+    url = f"{settings.API_URL}/api/cards/named/{name}"
     async with httpx.AsyncClient() as client:
         try:
             resp = await client.get(url, headers=headers)
@@ -53,5 +53,13 @@ async def get_many_cards_from_api(cards: list[str]) -> dict:
 
 
 async def get_commanders_from_api() -> dict:
-    """Ainda não implementado porque falta endpoint"""
-    raise NotImplementedError("Commander endpoint not implemented yet")
+    url = f"{settings.API_URL}/api/cards/topcommanders"
+    async with httpx.AsyncClient() as client:
+        try:
+            resp = await client.get(url, headers=headers)
+            resp.raise_for_status()
+            return resp.json()
+        except httpx.HTTPStatusError as e:
+            raise Exception(f"HTTP error fetching commanders: {e.response.status_code}")
+        except httpx.RequestError as e:
+            raise Exception(f"Error connecting to API: {str(e)}")
